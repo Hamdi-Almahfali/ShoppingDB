@@ -18,12 +18,12 @@ namespace ShoppingDB
             
             Console.WriteLine("\nUser Menu:");
 
-            Console.WriteLine("1. Log In");
-            Console.WriteLine("1. Sign Up");
+            Console.WriteLine("1. Sign In");
 
 
             Console.Write("Enter your choice: ");
             int choice = int.Parse(Console.ReadLine());
+            if (choice != 1) choice = 1;
             Console.Clear();
 
 
@@ -32,7 +32,7 @@ namespace ShoppingDB
                 case 1:
 
 
-                    Console.Write("Enter Phone Number name: ");
+                    Console.Write("Enter Phone Number: ");
                     int numb = int.Parse(Console.ReadLine());
 
                     Console.Write("Enter Password: ");
@@ -42,12 +42,12 @@ namespace ShoppingDB
                   
                     CheckIfCustomerExist(numb);
                    
-                    break;
+                break;
 
-                    case 2:
+                case 2:
                 
                     
-                    break;
+                break;
             }
 
         }
@@ -193,7 +193,7 @@ namespace ShoppingDB
             }
             else
             {
-                Console.WriteLine("Customer needs tp sign up");
+                Console.WriteLine("Customer needs to sign up");
                 NewCustomer();
             }
         
@@ -217,25 +217,25 @@ namespace ShoppingDB
 
         public void NewCustomer()
         {
-            Console.Write("Enter Phone number quantity: ");
+            Console.Write("Enter Phone number: ");
             int number = int.Parse(Console.ReadLine());
 
-            Console.Write("Enter Firstname code: ");
+            Console.Write("Enter Firstname: ");
             string firstName = Console.ReadLine();
 
-            Console.Write("Enter Lastname name: ");
+            Console.Write("Enter Lastname: ");
             string lastName = Console.ReadLine();
 
 
-            Console.Write("Enter Email name: ");
+            Console.Write("Enter Email: ");
             string eMail = Console.ReadLine();
 
 
-            Console.Write("Enter Address name: ");
+            Console.Write("Enter Address: ");
             string address = Console.ReadLine();
 
 
-            Console.Write("Enter City name: ");
+            Console.Write("Enter City: ");
             string city = Console.ReadLine();
 
 
