@@ -111,7 +111,7 @@ namespace ShoppingDB
                 Console.WriteLine("name: " + rdr.GetString(1));
                 Console.WriteLine("baseprice: " + rdr.GetInt32(2));
                 Console.WriteLine("supplier: " + rdr.GetInt32(4));
-                Console.WriteLine("discountpercent : " + rdr.GetInt32(5));
+               // Console.WriteLine("discountpercent : " + rdr.GetInt32(5));
             }
             con.Close();
         }
@@ -237,13 +237,63 @@ namespace ShoppingDB
             con.Close();
         }
 
+        //public void AddSupplierToCArt(int newNR, int newID, string newAddress, string newName, string newcity, string newcountry)
+        //{
+        //    using var con = new NpgsqlConnection(tempCs);
+        //    con.Open();
 
+        //    string sql = $"INSERT INTO shop.supplier VALUES ({newNR}, {newID}, {newAddress}, {newName}, {newcity}, {newcountry});";
 
+        //    using var cmd = new NpgsqlCommand(sql, con);
 
-       
+        //    cmd.ExecuteNonQuery();
+        //    con.Close();
+        //}
 
+        public void DiscountHistory()
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(tempCs))
+            {
+                connection.Open();
 
+                using NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM shop.viewDiscountHistory()", connection);
+            
+                try
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        Console.WriteLine("Discount History:");
+                        Console.WriteLine("---------------------------------------------------");
+                        Console.WriteLine("Date       | Customer ID | Item ID | Discount %");
+                        Console.WriteLine("---------------------------------------------------");
 
+                        while (reader.Read())
+                        {
+                            string date = reader.GetString(0);
+                            int customerId = reader.GetInt32(1);
+                            int itemId = reader.GetInt32(2);
+                            double discount = reader.GetDouble(3);
+
+                            Console.WriteLine($"{date} | {customerId,-11} | {itemId,-7} | {discount,-10}");
+                        }
+                    }
+                }
+                catch (NpgsqlException ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                    // Handle exception as needed
+                }
+                connection.Open();
+            }
+        }
     }
 }
+        
+
+
+
+
+
+    
+
 

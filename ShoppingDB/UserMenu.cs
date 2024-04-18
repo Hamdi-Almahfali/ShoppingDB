@@ -61,7 +61,7 @@ namespace ShoppingDB
                 Console.WriteLine("\nUser Menu:");
                 Console.WriteLine("1. See Available Products");
                 Console.WriteLine("2. Add Product");
-                Console.WriteLine("3. ");
+                Console.WriteLine("3. Confirm or Cancel Order");
                 Console.WriteLine("4. ");
 
                 Console.Write("Enter your choice: ");
@@ -78,8 +78,10 @@ namespace ShoppingDB
                         string code = Console.ReadLine();
 
                         viewInfo.SearchProductByCode(code);
-                     
+                        AdminMenu userConOrCan = new AdminMenu();
+                        userConOrCan.CancelOrConfirm();
 
+                      
                         Console.ReadKey();
                         break;
                     case 2:

@@ -23,6 +23,7 @@ namespace ShoppingDB
                 Console.WriteLine("4. Delete Product");
                 Console.WriteLine("5. See list of all products and their information");
                 Console.WriteLine("6. See list of new orders");
+                Console.WriteLine("7. See Discount History");
 
                 Console.Write("Enter your choice: ");
                 int choice = int.Parse(Console.ReadLine());
@@ -150,10 +151,7 @@ namespace ShoppingDB
 
                             deleteProductQuantities = (deleteProducts == "yes");
                         }
-
-
                         break;
-
 
                     case 5:
                         AdminPanel viewInfo = new AdminPanel();
@@ -170,6 +168,12 @@ namespace ShoppingDB
                         Console.ReadKey();
                         break;
 
+                    case 7:
+                        AdminPanel seeDiscountHistory = new AdminPanel();   
+
+                         seeDiscountHistory.DiscountHistory();
+
+                        break; 
                                             
                       
                 }
@@ -195,6 +199,7 @@ namespace ShoppingDB
                     int newOderId = int.Parse(Console.ReadLine());
 
                     adminConOrCan.ConfirmOrder(newOderId);
+                    Console.WriteLine("Confirmed");
                     Console.ReadKey();
                     break; 
 
@@ -203,6 +208,7 @@ namespace ShoppingDB
                     int newOderIdToDelete = int.Parse(Console.ReadLine());
 
                     adminConOrCan.CancelOrder(newOderIdToDelete);
+                    Console.WriteLine("Cancelled");
                     Console.ReadKey();
                     break;
             }
