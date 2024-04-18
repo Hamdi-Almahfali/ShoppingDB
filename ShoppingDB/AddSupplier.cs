@@ -263,18 +263,19 @@ namespace ShoppingDB
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
                         Console.WriteLine("Discount History:");
-                        Console.WriteLine("---------------------------------------------------");
-                        Console.WriteLine("Date       | Customer ID | Item ID | Discount %");
-                        Console.WriteLine("---------------------------------------------------");
+                        Console.WriteLine("----------------------------------------------------------------------------------");
+                        Console.WriteLine("Discount ID  | Product ID | Start Date          | End Date            | Discount %");
+                        Console.WriteLine("----------------------------------------------------------------------------------");
 
                         while (reader.Read())
                         {
-                            string date = reader.GetString(0);
-                            int customerId = reader.GetInt32(1);
-                            int itemId = reader.GetInt32(2);
-                            double discount = reader.GetDouble(3);
+                            string discountId = reader.GetString(0);
+                            string productId = reader.GetString(1);
+                            DateTime startDate = reader.GetDateTime(2);
+                            DateTime endDate = reader.GetDateTime(3);
+                            int discount = reader.GetInt32(4);
 
-                            Console.WriteLine($"{date} | {customerId,-11} | {itemId,-7} | {discount,-10}");
+                            Console.WriteLine($"{discountId}         | {productId,-10} | {startDate} | {endDate} | {discount}");
                         }
                     }
                 }
@@ -283,7 +284,7 @@ namespace ShoppingDB
                     Console.WriteLine("Error: " + ex.Message);
                     // Handle exception as needed
                 }
-                connection.Open();
+                connection.Close();
             }
         }
     }
