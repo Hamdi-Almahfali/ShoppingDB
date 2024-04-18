@@ -74,7 +74,7 @@ namespace ShoppingDB
                         while (addMoreSuppliers)
                         {                          
 
-                            Console.Write("Enter supplier number: ");
+                            Console.Write("Enter supplier Phone number: ");
                             int number = int.Parse(Console.ReadLine());
 
                             Console.Write("Enter supplier ID: ");
@@ -166,6 +166,7 @@ namespace ShoppingDB
 
                         AdminPanel viewNewOrders = new AdminPanel();
                         viewNewOrders.NewOrders();
+                        CancelOrConfirm();
                         Console.ReadKey();
                         break;
 
@@ -175,8 +176,41 @@ namespace ShoppingDB
             }
         }
 
-      
 
+        public void CancelOrConfirm()
+        {
+            AdminPanel adminConOrCan = new AdminPanel();
+
+            Console.WriteLine("1. Confirm Order");
+            Console.WriteLine("2. Cancel Order");
+
+            Console.Write("Enter your choice: ");
+            int choice = int.Parse(Console.ReadLine());          
+            Console.Clear();
+
+            switch (choice)
+            {
+                case 1:
+                    Console.Write("Enter ID order to Confirm: ");
+                    int newOderId = int.Parse(Console.ReadLine());
+
+                    adminConOrCan.ConfirmOrder(newOderId);
+                    Console.ReadKey();
+                    break; 
+
+                case 2:
+                    Console.Write("Enter ID order to Cancel: ");
+                    int newOderIdToDelete = int.Parse(Console.ReadLine());
+
+                    adminConOrCan.CancelOrder(newOderIdToDelete);
+                    Console.ReadKey();
+                    break;
+            }
+
+
+
+        }
+            
 
 
 

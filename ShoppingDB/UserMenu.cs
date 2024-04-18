@@ -60,9 +60,9 @@ namespace ShoppingDB
             {
                 Console.WriteLine("\nUser Menu:");
                 Console.WriteLine("1. See Available Products");
-                Console.WriteLine("2. Add Suppliers");
-                Console.WriteLine("3. Uppdate Product Quantity");
-                Console.WriteLine("4. Delete Product");
+                Console.WriteLine("2. Add Product");
+                Console.WriteLine("3. ");
+                Console.WriteLine("4. ");
 
                 Console.Write("Enter your choice: ");
                 int choice = int.Parse(Console.ReadLine());
