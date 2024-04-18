@@ -62,7 +62,7 @@ namespace ShoppingDB
                 Console.WriteLine("1. See Available Products");
                 Console.WriteLine("2. Add Product");
                 Console.WriteLine("3. Confirm or Cancel Order");
-                Console.WriteLine("4. ");
+                Console.WriteLine("4. View Order");
 
                 Console.Write("Enter your choice: ");
                 int choice = int.Parse(Console.ReadLine());
@@ -85,7 +85,21 @@ namespace ShoppingDB
                         Console.ReadKey();
                         break;
                     case 2:
-                       
+                       AdminPanel userAddProduct = new AdminPanel();
+
+                        Console.Write("Enter current customer number: ");
+                        int currentCustomerNr = int.Parse(Console.ReadLine());
+
+                        Console.Write("Enter product name: ");
+                        string product = Console.ReadLine();
+
+
+                        Console.Write("Enter quantity number: ");
+                        int newQuantity = int.Parse(Console.ReadLine());
+
+                        userAddProduct.AddToCart(currentCustomerNr, product, newQuantity);
+
+
                         Console.WriteLine("Exiting...");
                         Console.ReadKey();
                         break;

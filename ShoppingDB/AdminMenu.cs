@@ -24,6 +24,7 @@ namespace ShoppingDB
                 Console.WriteLine("5. See list of all products and their information");
                 Console.WriteLine("6. See list of new orders");
                 Console.WriteLine("7. See Discount History");
+                Console.WriteLine("8. Add Discount");
 
                 Console.Write("Enter your choice: ");
                 int choice = int.Parse(Console.ReadLine());
@@ -173,7 +174,34 @@ namespace ShoppingDB
 
                          seeDiscountHistory.DiscountHistory();
 
-                        break; 
+                        break;
+
+                    case 8:
+                        AdminPanel addDiscount = new AdminPanel();
+
+                        Console.Write("Enter Product ID: ");
+                        string productId = Console.ReadLine();
+
+                        Console.Write("Enter New Discount Procentage: ");
+                        int newDiscountProcentage = int.Parse(Console.ReadLine());
+
+                        Console.Write("Enter New Discount StartDate: ");
+                        DateTime discountDateStart = DateTime.Parse(Console.ReadLine());
+
+                        Console.Write("Enter New Discount EndDate: ");
+                        DateTime discountDateEnd = DateTime.Parse(Console.ReadLine());
+
+
+                        Console.Write("Enter Reason: ");
+                        string reason = Console.ReadLine();
+
+
+                        Console.Write("Enter Discount Code: ");
+                        string discountCode = Console.ReadLine();
+
+
+                        addDiscount.AddDiscount(productId, newDiscountProcentage, discountDateStart, discountDateEnd, reason, discountCode);
+                        break;
                                             
                       
                 }

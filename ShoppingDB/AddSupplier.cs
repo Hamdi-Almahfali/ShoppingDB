@@ -106,12 +106,12 @@ namespace ShoppingDB
 
             while (rdr.Read())
             {
-                Console.WriteLine("----------------------------------");           
+                Console.WriteLine("----------------------------------");
                 Console.WriteLine("code: " + rdr.GetString(0));
                 Console.WriteLine("name: " + rdr.GetString(1));
                 Console.WriteLine("baseprice: " + rdr.GetInt32(2));
                 Console.WriteLine("supplier: " + rdr.GetInt32(4));
-               // Console.WriteLine("discountpercent : " + rdr.GetInt32(5));
+                // Console.WriteLine("discountpercent : " + rdr.GetInt32(5));
             }
             con.Close();
         }
@@ -147,37 +147,37 @@ namespace ShoppingDB
             con.Close();
         }
 
-     
+
         public DataTable ViewOrder(short newOrderId)
         {
-        DataTable table = new DataTable();
+            DataTable table = new DataTable();
 
-        using (NpgsqlConnection connection = new NpgsqlConnection(tempCs))
-        {
-            connection.Open();
-
-            using (NpgsqlCommand command = new NpgsqlCommand("shop.vieworder", connection))
+            using (NpgsqlConnection connection = new NpgsqlConnection(tempCs))
             {
-                command.CommandType = CommandType.StoredProcedure;
+                connection.Open();
 
-                // Add parameters
-                command.Parameters.AddWithValue("neworderid", newOrderId);
-
-                try
+                using (NpgsqlCommand command = new NpgsqlCommand("shop.vieworder", connection))
                 {
-                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameters
+                    command.Parameters.AddWithValue("neworderid", newOrderId);
+
+                    try
                     {
-                        table.Load(reader);
+                        using (NpgsqlDataReader reader = command.ExecuteReader())
+                        {
+                            table.Load(reader);
+                        }
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Console.WriteLine("Error: " + ex.Message);
                     }
                 }
-                catch (NpgsqlException ex)
-                {
-                    Console.WriteLine("Error: " + ex.Message);
-                }
             }
-        }
 
-        return table;
+            return table;
         }
 
         public void PrintAllProductsInfo()
@@ -217,7 +217,7 @@ namespace ShoppingDB
                 Console.WriteLine("name: " + rdr.GetString(1));
                 Console.WriteLine("baseprice: " + rdr.GetInt32(2));
                 Console.WriteLine("supplier: " + rdr.GetInt32(4));
-              //  Console.WriteLine("discountpercent : " + rdr.GetInt32(4));
+                //  Console.WriteLine("discountpercent : " + rdr.GetInt32(4));
             }
             con.Close();
         }
@@ -257,7 +257,7 @@ namespace ShoppingDB
                 connection.Open();
 
                 using NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM shop.viewDiscountHistory()", connection);
-            
+
                 try
                 {
                     using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -287,8 +287,72 @@ namespace ShoppingDB
                 connection.Close();
             }
         }
+
+        public void AddDiscount(string newprodid, int newdiscpercent, DateTime discstartdate, DateTime discenddate, string reason, string code)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(tempCs))
+            {
+                connection.Open();
+
+                using (NpgsqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "shop.adddiscount";
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("newprodid", newprodid);
+                    command.Parameters.AddWithValue("newdiscpercent", newdiscpercent);
+                    command.Parameters.AddWithValue("discstartdate", discstartdate);
+                    command.Parameters.AddWithValue("discenddate", discenddate);
+                    command.Parameters.AddWithValue("reason", reason);
+                    command.Parameters.AddWithValue("code", code);
+
+
+                    command.ExecuteNonQuery();
+                }
+                //connection.Close();
+            }
+        }
+
+        public void AddToCart(int currentcustomernr, string product, int newquantity)
+        {
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(tempCs))
+                {
+                    connection.Open();
+
+
+                    using (NpgsqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "shop.addtocart";
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("currentcustomernr", currentcustomernr);
+                        command.Parameters.AddWithValue("product", product);
+                        command.Parameters.AddWithValue("newquantity", newquantity);
+
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Added successfully");
+                        connection.Close();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to add to cart" + ex.Message);
+            }
+
+
+        }
     }
 }
+
+
+
+
+    
+
         
 
 
